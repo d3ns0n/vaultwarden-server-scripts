@@ -23,17 +23,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+~/vaultwarden/backup-vaultwarden &&
+
 echo "Stopping vaultwarden..." &&
 supervisorctl stop vaultwarden &&
 
 echo "Moving old vaultwarden directory to output_bak..." &&
-mv output output_bak &&
+mv ~/vaultwarden/output ~/vaultwarden/output_bak &&
 
 echo "Downloading and extracting new vaultwarden version..." &&
-./docker-image-extract vaultwarden/server:alpine &&
+~/vaultwarden/docker-image-extract -o ~/vaultwarden/output vaultwarden/server:alpine &&
 
 echo "Starting vaultwarden..." &&
 supervisorctl start vaultwarden &&
 
 echo "Deleting output_bak..." &&
-rm -rf output_bak
+rm -rf ~/vaultwarden/output_bak

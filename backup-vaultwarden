@@ -22,14 +22,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+backup_directory="$HOME/vaultwarden/backups"
+backup_filename_data="$backup_directory/data/$(date +%Y-%m-%d).sqlite3"
+backup_filename_env="$backup_directory/env/.env_$(date +%Y-%m-%d)"
+
 # delete backups older than 30 days
-echo "cleaning up backup files older than 30 days..."
-find ~/vaultwarden/data/db-backup -mtime +30 -type f -print -delete
+echo "Cleaning up backup files older than 30 days..."
+find "$backup_directory" -mtime +30 -type f -print -delete
 printf "done.\n\n"
 
-# create new backup
-backup_filename="$HOME/vaultwarden/data/db-backup/$(date +%Y-%m-%d).sqlite3"
+# backup data
+echo "Backup data to '$backup_filename_data'"
+sqlite3 ~/vaultwarden/data/db.sqlite3 ".backup '$backup_filename_data'"
+printf "done.\n\n"
 
-echo "creating backup file '$backup_filename'"
-sqlite3 ~/vaultwarden/data/db.sqlite3 ".backup '$backup_filename'"
+# backup .env
+echo "Backup .env to '$backup_filename_env'"
+cp ~/vaultwarden/.env "$backup_filename_env"
 printf "done.\n\n"
