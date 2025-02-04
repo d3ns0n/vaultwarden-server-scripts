@@ -32,4 +32,4 @@ Subscribe to new releases on [GitHub](https://github.com/dani-garcia/vaultwarden
 ~/vaultwarden/update-vaultwarden
 ```
 
-Check the logs and Make sure that everything is up and running again by check
+Check the logs and make sure that everything is up and running again.
