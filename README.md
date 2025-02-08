@@ -18,10 +18,10 @@ A short summary how to install vaultwarden on uberspace can be found [INSTALL_VA
 crontab -e
 ```
 
-and add the backup script
+and add the backup script. The output will be written to `/home/username/vaultwarden/backups/backup-vaultwarden.log`. In case of an error there will still be an email.
 
-```cronexp
-0 0 * * * /home/username/vaultwarden/backup-vaultwarden
+```shell
+0 0 * * * /home/username/vaultwarden/backup-vaultwarden >> /home/username/vaultwarden/backups/backup-vaultwarden.log
 ```
 
 ## Update vaultwarden
